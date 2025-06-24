@@ -12,6 +12,8 @@ Yeah, we’ve been there.
 All based on your **demographics**, **body metrics**, and **lifestyle patterns** — because wellness should be *personal*. No fluff. Just what you need.
 
 ---
+### 🚀 Enjoy the service on this hosted website
+https://healthsync-zt3g.onrender.com
 
 ## 🚀 Features
 
