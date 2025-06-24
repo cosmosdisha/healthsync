@@ -1,0 +1,13 @@
+# Ignore virtual environment
+healthenv/
+
+# Ignore Python cache and bytecode
+__pycache__/
+*.pyc
+
+# Ignore notebooks 
+notebooks/
+
+# Ignore local SQLite database
+users.db
+

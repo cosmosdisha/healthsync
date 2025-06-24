@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Meal Recommendations | HealthSync</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-cover bg-center bg-no-repeat min-h-screen" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1470&q=80');">
+
+<!-- Navbar -->
+<nav class="bg-gradient-to-r from-green-600 to-emerald-500 fixed top-0 w-full z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center text-white">
+    <h1 class="text-2xl font-bold">HealthSync</h1>
+    <a href="/" class="hover:underline text-lg">Back to Home</a>
+  </div>
+</nav>
+
+<!-- Heading -->
+<div class="text-center mt-10">
+  <h2 class="text-4xl font-bold text-green-700 mb-2">🥗 Personalized Meal Recommendations</h2>
+  <p class="text-white-700 text-lg">Calories Target: <strong>{{ calories }} kcal</strong> | BMI: <strong>{{ bmi }}</strong></p>
+</div>
+
+<!-- Toggle Buttons -->
+<div class="flex flex-wrap justify-center mt-8 gap-4">
+  <button onclick="toggleSection('breakfast')" class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition">Breakfast</button>
+  <button onclick="toggleSection('lunch')" class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition">Lunch</button>
+  <button onclick="toggleSection('snack')" class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition">Snack</button>
+  <button onclick="toggleSection('dinner')" class="px-5 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition">Dinner</button>
+</div>
+
+<!-- Meal Sections -->
+{% for meal_type in ['Breakfast', 'Lunch', 'Snack', 'Dinner'] %}
+<div id="{{ meal_type|lower }}-section" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-10 px-6" style="display: {{ 'block' if loop.first else 'none' }};">
+  {% for meal in meals if meal.Meal == meal_type %}
+  <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-500">
+    <h3 class="text-xl font-semibold text-green-700">{{ meal.RecipeName }}</h3>
+    <p class="text-sm text-gray-600 mb-1"><strong>Meal:</strong> {{ meal.Meal }}</p>
+    <p class="text-sm text-gray-600"><strong>Calories:</strong> {{ meal.Calories }} kcal | <strong>Servings:</strong> {{ meal.Servings }}</p>
+    <p class="text-sm text-gray-600"><strong>Prep Time:</strong> {{ meal.PrepTimeInMins }} mins | <strong>Cook Time:</strong> {{ meal.CookTimeInMins }} mins</p>
+    <p class="text-sm text-gray-600"><strong>Course:</strong> {{ meal.Course }} | <strong>Diet:</strong> {{ meal.Diet }} | <strong>Cuisine:</strong> {{ meal.Cuisine }}</p>
+    <div class="mt-2">
+      <p class="text-sm text-gray-700"><strong>Ingredients:</strong><br>{{ meal.Ingredients }}</p>
+      <p class="text-sm text-gray-700 mt-2"><strong>Instructions:</strong><br>{{ meal.Instructions }}</p>
+      {% if meal.URL %}
+      <p class="mt-2 text-sm"><strong>Watch Tutorial:</strong> <a href="{{ meal.URL }}" target="_blank" class="text-green-600 underline">YouTube</a></p>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+
+<!-- Refresh Button -->
+<div class="text-center mt-10">
+  <a href="/food/refresh" class="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full transition">
+    🔄 Refresh Meal Suggestions
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="mt-20 py-6 text-center text-sm text-gray-500">
+  © 2025 HealthSync — Personalized Health Made Simple
+</footer>
+
+<!-- Toggle Script -->
+<script>
+function toggleSection(sectionId) {
+  const sections = ['breakfast', 'lunch', 'snack', 'dinner'];
+  sections.forEach(id => {
+    const el = document.getElementById(id + '-section');
+    el.style.display = (id === sectionId) ? 'block' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>

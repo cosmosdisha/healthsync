@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sleep Wellness Results – HealthSync</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    #preloader {
+      background: white url('https://i.gifer.com/ZZ5H.gif') no-repeat center center;
+      background-size: 80px 80px;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+    }
+
+    #scrollTopBtn:hover {
+      background-color: #059669;
+    }
+  </style>
+</head>
+
+<body class="bg-cover bg-center bg-no-repeat min-h-screen" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1470&q=80');">
+
+
+<!-- PRELOADER -->
+<div id="preloader"></div>
+
+<!-- NAVBAR -->
+<nav class="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 shadow-lg fixed top-0 w-full z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-white text-2xl font-bold">HealthSync</h1>
+    <div class="space-x-6 text-white text-lg">
+      <a href="/" class="hover:underline">Home</a>
+      <a href="/login" class="hover:underline">Login</a>
+      <a href="/signup" class="hover:underline">Sign Up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- RESULT SECTION -->
+<section class="pt-32 pb-20 px-6 md:px-16 min-h-screen">
+  <div class="max-w-4xl mx-auto bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-2xl" data-aos="fade-up">
+    <h2 class="text-3xl font-bold text-green-700 mb-6 text-center">Your Sleep & Wellness Insights</h2>
+
+    <!-- Cluster Info -->
+    <div class="mb-6 text-center">
+      <p class="text-lg text-gray-700">You belong to <strong class="text-green-600">Cluster {{ result.cluster }}</strong> – people with similar patterns as yours.</p>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      {% for key, value in result.interpretations.items() %}
+      <div class="bg-white shadow-md p-6 rounded-xl border border-green-200" data-aos="zoom-in">
+        <h4 class="text-lg font-semibold text-green-700 mb-2">{{ key }}</h4>
+        <p class="text-gray-800">{{ value }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Suggestions -->
+    <div class="bg-green-100 p-6 rounded-xl" data-aos="fade-up">
+      <h3 class="text-xl font-semibold text-green-800 mb-3">Suggestions</h3>
+      <ul class="list-disc pl-6 space-y-2 text-gray-700">
+        {% for tip in result.suggestions %}
+        <li>{{ tip }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SCROLL TO TOP BUTTON -->
+<button onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">↑</button>
+
+<!-- FOOTER -->
+<footer class="bg-green-700 text-white py-6 text-center">
+  <p>© 2025 HealthSync | Sleep smarter, live stronger 🛌</p>
+</footer>
+
+<!-- AOS + JS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000 });
+
+  const scrollBtn = document.getElementById("scrollTopBtn");
+  window.onscroll = function () {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      scrollBtn.style.display = "block";
+    } else {
+      scrollBtn.style.display = "none";
+    }
+  };
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  window.addEventListener("load", function () {
+    document.getElementById("preloader").style.display = "none";
+  });
+</script>
+</body>
+</html>
